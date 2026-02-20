@@ -1,3 +1,10 @@
+"""
+Alternative cleaning implementation using SQL (DuckDB).
+This script performs the same data transformation as the main pipeline 
+but leverages SQL window functions for enhanced structural validation 
+and duplicate handling in the panel dataset.
+"""
+
 import argparse
 from io import StringIO
 from pathlib import Path
