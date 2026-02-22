@@ -19,6 +19,6 @@ It transforms raw API responses into cleaned, standardized panel datasets ready 
 - **Data Transformation:** Generates both `long` and `wide` formats for analysis.
 
 ## Current Status
-- [x] API Integration & Pipeline Architecture
+- [x] API Integration & Pipeline
 - [x] Data Cleaning & Panel Construction (Python & SQL)
 - [ ] Econometric Analysis (Panel Fixed Effects) - *In Progress*
