@@ -17,7 +17,7 @@ It transforms raw API responses into cleaned, standardized panel datasets ready 
 - **Automated Extraction:** Direct integration with OECD's SDMX REST API.
 - **Robust Data Cleaning:** Handles missing values and prioritizes specific labor market measures.
 - **Data Transformation:** Generates both `long` and `wide` formats for analysis.
-- **3D PLOT visualization** Generates rotatable 3D plots for exploring each variable by country and year.
+- **Interactive 3D Visualization** Generates rotatable 3D plots for exploring each variable by country and year.
 
 ## Current Status
 - [x] API Integration & Pipeline
