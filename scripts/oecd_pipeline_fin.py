@@ -1,6 +1,10 @@
+# pipeline.py
 import argparse
 from pathlib import Path
 from io import StringIO
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+
 
 import pandas as pd
 import requests
@@ -93,6 +97,61 @@ def qc(df: pd.DataFrame, name: str) -> None:
     print("dup keys:", df.duplicated(["country", "indicator", "year"]).sum())
     print(df.groupby("country")["year"].agg(["min", "max", "count"]))
 
+# 3D plot variables
+
+def plot_variables_per_country_3d_html(master: pd.DataFrame, out_dir: Path) -> None:
+    plot_dir = out_dir / "plots_3d_html"
+    plot_dir.mkdir(parents=True, exist_ok=True)
+
+    indicators = sorted(master["indicator"].dropna().unique())
+
+    for indicator in indicators:
+        sub = master[master["indicator"] == indicator].copy()
+        if sub.empty:
+            continue
+
+        fig = go.Figure()
+
+        countries = sorted(sub["country"].dropna().unique())
+        country_to_num = {c: i for i, c in enumerate(countries)}
+
+        for country in countries:
+            d = sub[sub["country"] == country].sort_values("year")
+            fig.add_trace(
+                go.Scatter3d(
+                    x=d["year"].astype(float),
+                    y=[country_to_num[country]] * len(d),
+                    z=d["value"].astype(float),
+                    mode="lines+markers",
+                    name=country,
+                    marker=dict(size=3),
+                    line=dict(width=4),
+                )
+            )
+
+        fig.update_layout(
+            title=f"{indicator} (3D interaktiv)",
+            scene=dict(
+                xaxis_title="Year",
+                yaxis_title="Country",
+                zaxis_title="Value",
+                yaxis=dict(
+                    tickvals=list(country_to_num.values()),
+                    ticktext=list(country_to_num.keys()),
+                ),
+            ),
+            margin=dict(l=0, r=0, b=0, t=40),
+            legend=dict(x=0.01, y=0.99),
+        )
+
+        fig.write_html(
+            plot_dir / f"{indicator.lower()}_3d.html",
+            include_plotlyjs="cdn",
+            full_html=True,
+        )
+
+    print("Saved interactive 3D plots in:", plot_dir.resolve())
+
 # Output doc
 def run(out_dir: Path) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -124,6 +183,9 @@ def run(out_dir: Path) -> None:
         )
         .reset_index()
     )
+
+    plot_variables_per_country_3d_html(master, out_dir)
+
 
     cols = ["country", "year", "CPI_YOY", "UNEMPLOYMENT_RATE", "GDP_GROWTH_REAL", "RATE"]
     cols = [c for c in cols if c in wide.columns]
