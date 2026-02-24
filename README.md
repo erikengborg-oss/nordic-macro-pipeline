@@ -1,25 +1,40 @@
-# nordic-macro-pipeline
-Automated ETL pipeline for Nordic macroeconomic data via OECD API
 # Nordic Macroeconomic Panel Pipeline
 
-An automated ETL tool designed to fetch and structure macroeconomic indicators for the Nordic region (Sweden, Norway, Denmark, Finland) via the OECD SDMX API.
+Automated ETL pipeline for Nordic macroeconomic data via the OECD SDMX API.
 
 ## Project Overview
-This project automates the collection of key economic signals: 
+
+This project fetches and structures key macro indicators for:
+- Sweden
+- Norway
+- Denmark
+- Finland
+
+Indicators included:
 - GDP Growth (Real)
 - Inflation (CPI YoY)
 - Unemployment Rate
-- Short-term Interest Rates
+- Short-term Interest Rate
 
-It transforms raw API responses into cleaned, standardized panel datasets ready for econometric analysis.
+The pipeline transforms raw API responses into cleaned panel datasets in both long and wide format, ready for econometric analysis.
 
 ## Features
-- **Automated Extraction:** Direct integration with OECD's SDMX REST API.
-- **Robust Data Cleaning:** Handles missing values and prioritizes specific labor market measures.
-- **Data Transformation:** Generates both `long` and `wide` formats for analysis.
-- **Interactive 3D Visualization:** Generates rotatable 3D plots for exploring each variable by country and year.
+
+- **Automated Extraction:** Direct integration with the OECD SDMX REST API.
+- **Robust Data Cleaning:** Handles missing values and prioritizes selected labor market measures.
+- **Data Transformation:** Produces both `long` and `wide` datasets.
+- **Interactive 3D Visualization:** Rotatable Plotly charts by variable, country, and year.
+
+## Interactive Plots (GitHub Pages)
+
+- **Homepage:** [Nordic Macro 3D Plots](https://erikengborg-oss.github.io/nordic-macro-pipeline/)
+- **CPI YoY:** [cpi_yoy_3d.html](https://erikengborg-oss.github.io/nordic-macro-pipeline/cpi_yoy_3d.html)
+- **GDP Growth (Real):** [gdp_growth_real_3d.html](https://erikengborg-oss.github.io/nordic-macro-pipeline/gdp_growth_real_3d.html)
+- **Rate:** [rate_3d.html](https://erikengborg-oss.github.io/nordic-macro-pipeline/rate_3d.html)
+- **Unemployment Rate:** [unemployment_rate_3d.html](https://erikengborg-oss.github.io/nordic-macro-pipeline/unemployment_rate_3d.html)
 
 ## Current Status
-- [x] API Integration & Pipeline
-- [x] Data Cleaning & Panel Construction (Python & SQL)
-- [ ] Econometric Analysis (Panel Fixed Effects) - *In Progress*
+
+- [x] API Integration and Pipeline
+- [x] Data Cleaning and Panel Construction (Python and SQL)
+- [ ] Econometric Analysis (Panel Fixed Effects) - in progress
